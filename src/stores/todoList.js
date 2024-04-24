@@ -50,7 +50,7 @@ export const useTodoList = defineStore('todo', () => {
           type: 'InProgress',
           taskName: null,
           description: null,
-          id: 3
+          id: 1
         },
         {
           profile:
@@ -60,7 +60,7 @@ export const useTodoList = defineStore('todo', () => {
           type: 'InProgress',
           taskName: null,
           description: null,
-          id: 4
+          id: 2
         }
       ]
     },
@@ -75,7 +75,7 @@ export const useTodoList = defineStore('todo', () => {
           deadLine: '05/26/2024',
           type: 'Review',
           taskName: null,
-          id: 3
+          id: 1
         },
         {
           profile:
@@ -84,7 +84,7 @@ export const useTodoList = defineStore('todo', () => {
           deadLine: '02/04/2024',
           type: 'Review',
           taskName: null,
-          id: 4
+          id: 2
         }
       ]
     },
@@ -109,5 +109,12 @@ export const useTodoList = defineStore('todo', () => {
     todoLists.value[index].list.push(payload)
   }
 
-  return { todoLists, createNewTaskHeader, createNewTask }
+  function removeTask(item, index) {
+    todoLists.value[index].list = todoLists.value[index].list.filter((data) => {
+      console.log(data.name, item.name)
+      return data.name !== item.name
+    })
+  }
+
+  return { todoLists, createNewTaskHeader, createNewTask, removeTask }
 })

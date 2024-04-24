@@ -163,6 +163,10 @@ export default {
         this.refreshTodsLists()
         this.taskTypeHeader = null
       }
+    },
+    removeTask(item, index) {
+      this.handleTodos.removeTask(item, index)
+      this.refreshTodsLists()
     }
   }
 }

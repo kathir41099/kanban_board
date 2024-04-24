@@ -48,8 +48,14 @@
       >
         <template #item="{ element }">
           <div class="list-group-item item">
-            <div v-if="viewType === 'card'" class="h6 list_type_space_name name">
-              {{ element.name }}
+            <div v-if="viewType === 'card'" class="h6 d-flex justify-content-between">
+              <span class="d-inline-block list_type_space_name name">{{ element.name }}</span>
+              <span
+                class="material-symbols-outlined delete_icon"
+                @click="removeTask(element, index)"
+              >
+                delete
+              </span>
             </div>
             <div class="d-flex align-items-center mb-2">
               <div class="profile">
