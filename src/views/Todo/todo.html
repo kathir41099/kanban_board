@@ -1,71 +1,91 @@
-<div class="d-flex p-5">
-  <div class="ms-4" v-for="(items, index) of todoLists" :key="items.id">
-    <div
-      v-if="items.header !== 'Add section'"
-      class="d-flex justify-content-between px-3 mb-3 width_300"
+<div>
+  <div class="switch_wrapper">
+    <span
+      v-if="viewType === 'card'"
+      class="material-symbols-outlined type_switch_btn"
+      @click="switchcardListView()"
     >
-      <div class="h5">{{items.header}}</div>
-      <span
-        class="material-symbols-outlined add_btn"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-        @click="addRows(items.header)"
+      view_list
+    </span>
+    <span v-else class="material-symbols-outlined type_switch_btn" @click="switchcardListView()">
+      grid_view
+    </span>
+  </div>
+  <div :class="viewType === 'list' ? 'list_view' : 'card_view'">
+    <div class="task_apace" v-for="(items, index) of todoLists" :key="items.id">
+      <div
+        v-if="items.header !== 'Add section'"
+        class="d-flex justify-content-between px-3 mb-3 width_300"
       >
-        add
-      </span>
-    </div>
-    <div v-else class="d-flex add_section px-3 mb-3">
-      <span
-        class="material-symbols-outlined add_btn"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
-        @click="addSection"
+        <div class="h5">{{items.header}}</div>
+        <span
+          class="material-symbols-outlined add_btn"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          @click="addRows(items.header)"
+        >
+          add
+        </span>
+      </div>
+      <div v-else class="d-flex add_section px-3 mb-3">
+        <span
+          class="material-symbols-outlined add_btn"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight"
+          @click="addSection"
+        >
+          add
+        </span>
+        <div class="h5 ms-2 width_110" @click="addSection">{{items.header}}</div>
+      </div>
+      <draggable
+        v-if="items.list && items.list.length"
+        :list="items.list"
+        class="list-group"
+        group="a"
+        item-key="profile"
       >
-        add
-      </span>
-      <div class="h5 ms-2 width_110" @click="addSection">{{items.header}}</div>
-    </div>
-    <draggable
-      v-if="items.list && items.list.length"
-      :list="items.list"
-      class="list-group"
-      group="a"
-      item-key="profile"
-    >
-      <template #item="{ element }">
-        <div class="list-group-item item">
-          <div class="mb-3 h6">{{ element.name }}</div>
-          <div class="d-flex align-items-center">
-            <div class="profile">
-              <img
-                :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
-                alt=""
-              />
+        <template #item="{ element }">
+          <div class="list-group-item item">
+            <div v-if="viewType === 'card'" class="h6 list_type_space_name name">
+              {{ element.name }}
             </div>
-            <div class="ms-3 d-flex justify-content-between">
-              <div :style="{color:getFormattedTimeStamp(element.deadLine).color }">
-                {{ getFormattedTimeStamp(element.deadLine).dayCount }}
+            <div class="d-flex align-items-center">
+              <div class="profile">
+                <!-- dsjkdf -->
+                <img
+                  :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
+                  alt="image"
+                />
               </div>
-              <div class="ms-3 task_type">{{ element.type }}</div>
+              <div v-if="viewType === 'list'" class="h6 list_type_space_name name">
+                {{ element.name }}
+              </div>
+              <div class="d-flex justify-content-between list_type">
+                <div class="date" :style="{color:getFormattedTimeStamp(element.deadLine).color }">
+                  {{ getFormattedTimeStamp(element.deadLine).dayCount }}
+                </div>
+                <div class="task_type list_type type">{{ element.type }}</div>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </draggable>
-    <div
-      v-else-if="!items.list.length && items.header !== 'Add section'"
-      class="d-flex add_section px-3 mb-3"
-    >
-      <span
-        class="material-symbols-outlined add_btn add_section"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-        @click="addRows(items.header)"
+        </template>
+      </draggable>
+      <div
+        v-else-if="!items.list.length && items.header !== 'Add section'"
+        class="d-flex add_section px-3 mb-3"
       >
-        add
-      </span>
-      <div class="h5 ms-2">Add task</div>
+        <span
+          class="material-symbols-outlined add_btn add_section"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          @click="addRows(items.header)"
+        >
+          add
+        </span>
+        <div class="h5 ms-2">Add task</div>
+      </div>
     </div>
   </div>
   <!-- Modal -->
