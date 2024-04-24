@@ -1,0 +1,212 @@
+<div class="d-flex p-5">
+  <div class="ms-4" v-for="(items, index) of todoLists" :key="items.id">
+    <div
+      v-if="items.header !== 'Add section'"
+      class="d-flex justify-content-between px-3 mb-3 width_300"
+    >
+      <div class="h5">{{items.header}}</div>
+      <span
+        class="material-symbols-outlined add_btn"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        @click="addRows(items.header)"
+      >
+        add
+      </span>
+    </div>
+    <div v-else class="d-flex add_section px-3 mb-3">
+      <span
+        class="material-symbols-outlined add_btn"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+        @click="addSection"
+      >
+        add
+      </span>
+      <div class="h5 ms-2 width_110" @click="addSection">{{items.header}}</div>
+    </div>
+    <draggable
+      v-if="items.list && items.list.length"
+      :list="items.list"
+      class="list-group"
+      group="a"
+      item-key="profile"
+    >
+      <template #item="{ element }">
+        <div class="list-group-item item">
+          <div class="mb-3 h6">{{ element.name }}</div>
+          <div class="d-flex align-items-center">
+            <div class="profile">
+              <img
+                :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
+                alt=""
+              />
+            </div>
+            <div class="ms-3 d-flex justify-content-between">
+              <div :style="{color:getFormattedTimeStamp(element.deadLine).color }">
+                {{ getFormattedTimeStamp(element.deadLine).dayCount }}
+              </div>
+              <div class="ms-3 task_type">{{ element.type }}</div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </draggable>
+    <div
+      v-else-if="!items.list.length && items.header !== 'Add section'"
+      class="d-flex add_section px-3 mb-3"
+    >
+      <span
+        class="material-symbols-outlined add_btn add_section"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        @click="addRows(items.header)"
+      >
+        add
+      </span>
+      <div class="h5 ms-2">Add task</div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Create new task</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="UserName" class="form-label">User name <sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              :class="{'input_error': v$.userName.$error && !addTaskValidationControl}"
+              id="UserName"
+              placeholder="Enter user name"
+              v-model.trim="v$.userName.$model"
+            />
+            <div class="error_msg" v-if="v$.userName.$error && !addTaskValidationControl">
+              User name required
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="TaskName" class="form-label">Task name <sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              :class="{'input_error': v$.taskName.$error && !addTaskValidationControl}"
+              id="TaskName"
+              placeholder="Enter task name"
+              v-model.trim="v$.taskName.$model"
+            />
+            <div class="error_msg" v-if="v$.taskName.$error && !addTaskValidationControl">
+              Task name required
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="ProfileLink" class="form-label">Profile link</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ProfileLink"
+              placeholder="Enter profile url"
+              v-model="profileUrl"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="DueDate" class="form-label">Due date <sup>*</sup></label>
+            <input type="date" class="form-control" id="DueDate" v-model="dueDate" />
+          </div>
+          <div class="mb-3">
+            <label for="Description" class="form-label">Task type <sup>*</sup></label>
+            <div class="d-flex flex-wrap">
+              <div class="form-check ms-4" v-for="taskName of taskNames">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  :id="taskName.name"
+                  @change="selectedTaskType(taskName.name)"
+                  :checked="taskType === taskName.name"
+                />
+                <label class="form-check-label" :for="taskName.name"> {{taskName.name}} </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="Description"
+              rows="3"
+              v-model="description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close_btn_modal" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" @click="createNewTask()">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Off canvas -->
+
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="mb-3">
+        <label for="TaskName" class="form-label">Task name <sup>*</sup></label>
+        <input
+          type="text"
+          class="form-control"
+          :class="{'input_error': v$.taskTypeHeader.$error && !addSectionValidationControl}"
+          id="TaskName"
+          placeholder="Enter task name"
+          v-model.trim="v$.taskTypeHeader.$model"
+        />
+        <div class="error_msg" v-if="v$.taskTypeHeader.$error && !addSectionValidationControl">
+          Task name required
+        </div>
+      </div>
+    </div>
+    <div class="p-3">
+      <button type="button" class="btn btn-secondary close_btn_sidebar" data-bs-dismiss="offcanvas">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary ms-4" @click="createNewTaskHeader()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

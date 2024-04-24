@@ -1,0 +1,41 @@
+.add_btn {
+  color: #363434;
+  cursor: pointer;
+}
+.list-group-item {
+  width: 300px;
+  border: none;
+  padding: 30px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 25px 0px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.profile {
+  max-width: 40px;
+  height: auto;
+
+  img {
+    width: 100%;
+    border-radius: 50%;
+  }
+}
+.add_section {
+  color: #ccc;
+}
+.item {
+  min-height: 150px;
+}
+.input_error {
+  border: red 0.5px solid;
+}
+.error_msg {
+  color: red;
+  font-size: 14px;
+  margin-top: 6px;
+}
+.task_type {
+  color: #b3b3b3;
+}
+.width_110 {
+  min-width: 110px;
+}

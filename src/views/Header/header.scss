@@ -1,0 +1,33 @@
+.header {
+  position: fixed;
+  top: 0;
+  height: 65px;
+  width: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 29px 0px;
+  display: flex;
+  align-items: center;
+  padding: 3px 18px;
+  justify-content: space-between;
+  z-index: 100;
+  background: #fff;
+}
+.header_icon {
+  background: #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 27px;
+  margin-left: 15px;
+}
+.font_weight_light {
+  color: #a49090;
+}
+.font_weight_strong {
+  font-weight: 600;
+  font-size: 28px;
+  color: #ccc;
+  cursor: pointer;
+}
+.width_300 {
+  width: 300px;
+}
