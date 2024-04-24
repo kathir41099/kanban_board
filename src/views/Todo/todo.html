@@ -51,9 +51,8 @@
             <div v-if="viewType === 'card'" class="h6 list_type_space_name name">
               {{ element.name }}
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center mb-2">
               <div class="profile">
-                <!-- dsjkdf -->
                 <img
                   :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
                   alt="image"
@@ -67,8 +66,12 @@
                   {{ getFormattedTimeStamp(element.deadLine).dayCount }}
                 </div>
                 <div class="task_type list_type type">{{ element.type }}</div>
+                <div v-if="viewType === 'list'" class="description ms-3">
+                  {{element.description}}
+                </div>
               </div>
             </div>
+            <div v-if="viewType === 'card'" class="description">{{element.description}}</div>
           </div>
         </template>
       </draggable>
@@ -180,9 +183,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary close_btn_modal" data-bs-dismiss="modal">
-            Close
+            Cancel
           </button>
-          <button type="button" class="btn btn-primary" @click="createNewTask()">Understood</button>
+          <button type="button" class="btn btn-primary" @click="createNewTask()">Submit</button>
         </div>
       </div>
     </div>

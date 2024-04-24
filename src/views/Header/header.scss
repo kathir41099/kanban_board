@@ -1,7 +1,7 @@
 .header {
   position: fixed;
   top: 0;
-  height: 65px;
+  height: 60px;
   width: 100%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 29px 0px;
   display: flex;
@@ -30,4 +30,13 @@
 }
 .width_300 {
   width: 300px;
+}
+.logo_section {
+  display: flex;
+  align-items: center;
+  span {
+    padding: 8px 0 0 2px;
+    display: inline-block;
+    font-weight: 600;
+  }
 }

@@ -9,7 +9,7 @@
     margin-left: 30px;
   }
   .list-group-item {
-    width: 300px;
+    width: 330px;
     border: none;
     padding: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 25px 0px;
@@ -17,7 +17,7 @@
     border-radius: 10px;
   }
   .item {
-    min-height: 150px;
+    min-height: 180px;
   }
   .list_type {
     margin-left: 20px;
@@ -73,6 +73,12 @@
 }
 .name {
   width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.description {
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
