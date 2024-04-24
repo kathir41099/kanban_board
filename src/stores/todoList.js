@@ -12,7 +12,7 @@ export const useTodoList = defineStore('todo', () => {
           name: 'John 1',
           deadLine: '03/4/2024',
           type: 'Todo',
-          taskName: null,
+          taskName: 'Todo',
           description: null,
           id: 0
         },
@@ -22,7 +22,7 @@ export const useTodoList = defineStore('todo', () => {
           name: 'Joao 2',
           deadLine: '01/04/2024',
           type: 'Todo',
-          taskName: null,
+          taskName: 'Teble create',
           description: null,
           id: 1
         },
@@ -32,7 +32,7 @@ export const useTodoList = defineStore('todo', () => {
           name: 'Jean 3',
           deadLine: '04/24/2024',
           type: 'Todo',
-          taskName: null,
+          taskName: 'Theme',
           description: null,
           id: 2
         }
@@ -48,7 +48,7 @@ export const useTodoList = defineStore('todo', () => {
           name: 'Jonny 4',
           deadLine: '02/03/2024',
           type: 'InProgress',
-          taskName: null,
+          taskName: 'List view',
           description: null,
           id: 1
         },
@@ -58,7 +58,7 @@ export const useTodoList = defineStore('todo', () => {
           name: 'Guisepe 5',
           deadLine: '05/04/2024',
           type: 'InProgress',
-          taskName: null,
+          taskName: 'Grid view',
           description: null,
           id: 2
         }

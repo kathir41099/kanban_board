@@ -71,7 +71,7 @@
                 <div class="date" :style="{color:getFormattedTimeStamp(element.deadLine).color }">
                   {{ getFormattedTimeStamp(element.deadLine).dayCount }}
                 </div>
-                <div class="task_type list_type type">{{ element.type }}</div>
+                <div class="task_type list_type task_name">{{ element.taskName }}</div>
                 <div v-if="viewType === 'list'" class="description ms-3">
                   {{element.description}}
                 </div>
