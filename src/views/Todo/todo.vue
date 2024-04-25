@@ -4,11 +4,13 @@ import { useVuelidate } from '@vuelidate/core'
 import { requiredIf } from '@vuelidate/validators'
 import $ from 'jquery'
 import { useTodoList } from '@/stores/todoList'
+import { todoMixin } from './todo.mixins.js'
 
 export default {
   name: 'two-list-headerslots',
   display: 'Two list header slot',
   order: 14,
+  mixins: [todoMixin],
   components: {
     draggable
   },
@@ -93,46 +95,6 @@ export default {
     switchcardListView() {
       this.viewType = this.viewType === 'list' ? 'card' : 'list'
     },
-    getFormattedTimeStamp(calcDateRange) {
-      let calcDate = new Date() - new Date(calcDateRange)
-      const dayCount = Math.floor(calcDate / 86400000)
-      if (dayCount > 365) {
-        return {
-          dayCount: (dayCount / 365).toFixed(0) + ' year ago',
-          color: 'red'
-        }
-      } else if (dayCount > 30) {
-        return {
-          dayCount: (dayCount / 30).toFixed(0) + ' month ago',
-          color: 'red'
-        }
-      } else if (dayCount > 0) {
-        return {
-          dayCount: dayCount + ' days ago',
-          color: 'red'
-        }
-      } else if (dayCount === 0) {
-        return {
-          dayCount: 'Today',
-          color: 'orange'
-        }
-      } else if (dayCount < -30) {
-        return {
-          dayCount: Math.abs(dayCount / 30).toFixed(0) + ' month to go',
-          color: 'green'
-        }
-      } else if (dayCount < -365) {
-        return {
-          dayCount: Math.abs(dayCount / 365).toFixed(0) + ' year to go',
-          color: 'green'
-        }
-      }
-
-      return {
-        dayCount: Math.abs(dayCount) + ' days to go',
-        color: 'green'
-      }
-    },
     addRows(header) {
       this.headerName = header
       this.taskType = this.headerName
@@ -163,11 +125,14 @@ export default {
         })
         $('.close_btn_modal').trigger('click')
         this.refreshTodsLists()
-        this.description = null
-        this.profileUrl = null
-        this.userName = null
-        this.taskName = null
+        this.refreshTaskForm()
       }
+    },
+    refreshTaskForm() {
+      this.description = null
+      this.profileUrl = null
+      this.userName = null
+      this.taskName = null
     },
     selectedTaskType(taskType) {
       this.taskType = taskType
