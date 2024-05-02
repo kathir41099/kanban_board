@@ -18,14 +18,17 @@
         class="d-flex justify-content-between px-3 mb-3 width_300"
       >
         <div class="h5">{{items.header}}</div>
-        <span
-          class="material-symbols-outlined add_btn"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          @click="addRows(items.header)"
-        >
-          add
-        </span>
+        <div>
+          <span
+            class="material-symbols-outlined add_btn"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            @click="addRows(items.header)"
+          >
+            add
+          </span>
+          <span class="material-symbols-outlined ms-3"> more_horiz </span>
+        </div>
       </div>
       <div v-else class="d-flex add_section px-3 mb-3">
         <span
@@ -48,36 +51,49 @@
       >
         <template #item="{ element }">
           <div class="list-group-item item">
-            <div v-if="viewType === 'card'" class="h6 d-flex justify-content-between">
+            <div v-if="viewType === 'card'" class="d-flex justify-content-between">
               <span class="d-inline-block list_type_space_name name">{{ element.name }}</span>
-              <span
-                class="material-symbols-outlined delete_icon"
-                @click="removeTask(element, index)"
-              >
-                delete
-              </span>
-            </div>
-            <div class="d-flex align-items-center">
-              <div class="profile">
-                <img
-                  :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
-                  alt="image"
-                />
-              </div>
-              <div v-if="viewType === 'list'" class="h6 list_type_space_name name">
-                {{ element.name }}
-              </div>
-              <div class="d-flex justify-content-between list_type">
-                <div class="date" :style="{color:getFormattedTimeStamp(element.deadLine).color }">
-                  {{ getFormattedTimeStamp(element.deadLine).dayCount }}
-                </div>
-                <div class="task_type list_type task_name">{{ element.taskName }}</div>
-                <div v-if="viewType === 'list'" class="description ms-3">
-                  {{element.description}}
-                </div>
+              <div class="dropdown">
+                <span
+                  class="material-symbols-outlined ms-3 add_btn"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  more_horiz
+                </span>
+                <ul class="dropdown-menu ps-3" aria-labelledby="dropdownMenuButton1">
+                  <li class="delete_icon" @click="removeTask(element, index)">Delete</li>
+                </ul>
               </div>
             </div>
-            <!-- <div v-if="viewType === 'card'" class="description">{{element.description}}</div> -->
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <div class="profile">
+                  <img
+                    :src="element.profile ? element.profile: 'https://img.freepik.com/premium-photo/fun-3d-asian-teenager-with-manga-style_183364-14785.jpg?w=740'"
+                    alt="image"
+                  />
+                </div>
+                <div v-if="viewType === 'list'" class="list_type_space_name name">
+                  {{ element.name }}
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div
+                    class="date ms-4"
+                    :style="{color:getFormattedTimeStamp(element.deadLine).color }"
+                  >
+                    {{ getFormattedTimeStamp(element.deadLine).dayCount }}
+                  </div>
+                  <div v-if="viewType === 'list'" class="description ms-3 list_type">
+                    {{element.description}}
+                  </div>
+                </div>
+              </div>
+              <div class="task_type list_type">
+                <div class="task_name">{{ element.taskName }}</div>
+              </div>
+            </div>
           </div>
         </template>
       </draggable>

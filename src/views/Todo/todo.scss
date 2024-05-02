@@ -1,5 +1,4 @@
 .add_btn {
-  color: #363434;
   cursor: pointer;
 }
 .card_view {
@@ -9,17 +8,17 @@
     margin-left: 15px;
   }
   .list-group {
-    background: #dddddd42;
-    padding: 20px;
+    background: #f9f9f9;
+    padding: 18px 12px;
     min-height: calc(100vh - 220px);
     overflow-y: auto;
+    border-radius: 16px;
   }
   .list-group-item {
     width: 330px;
     border: none;
-    padding: 20px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 25px 0px;
-    margin-bottom: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
     border-radius: 10px;
   }
   .item {
@@ -28,9 +27,12 @@
   }
   .list_type {
     margin-left: 20px;
+    background: #f9f9f9;
+    padding: 4px 8px;
+    border-radius: 10px;
   }
   .list_type_space_name {
-    margin-bottom: 10px;
+    margin-bottom: 18px;
   }
 }
 .list_view {
@@ -49,6 +51,9 @@
   }
   .list_type {
     margin-left: 100px;
+  }
+  .width_300 {
+    width: 300px;
   }
 }
 .profile {
@@ -110,6 +115,10 @@
 }
 .delete_icon {
   cursor: pointer;
-  color: red;
+  color: red !important;
   font-size: 18px;
+}
+.material-symbols-outlined {
+  color: #a0a8ba;
+  font-weight: 600;
 }

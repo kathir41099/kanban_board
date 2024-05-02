@@ -6,38 +6,38 @@ export const todoMixin = {
       if (dayCount > 365) {
         return {
           dayCount: (dayCount / 365).toFixed(0) + ' year ago',
-          color: 'red'
+          color: '#e13636'
         }
       } else if (dayCount > 30) {
         return {
           dayCount: (dayCount / 30).toFixed(0) + ' month ago',
-          color: 'red'
+          color: '#e13636'
         }
       } else if (dayCount > 0) {
         return {
           dayCount: dayCount + ' days ago',
-          color: 'red'
+          color: '#e13636'
         }
       } else if (dayCount === 0) {
         return {
           dayCount: 'Today',
-          color: 'orange'
+          color: '#2c3340'
         }
       } else if (dayCount < -30) {
         return {
           dayCount: Math.abs(dayCount / 30).toFixed(0) + ' month to go',
-          color: 'green'
+          color: '#397adc'
         }
       } else if (dayCount < -365) {
         return {
           dayCount: Math.abs(dayCount / 365).toFixed(0) + ' year to go',
-          color: 'green'
+          color: '#397adc'
         }
       }
 
       return {
         dayCount: Math.abs(dayCount) + ' days to go',
-        color: 'green'
+        color: '#397adc'
       }
     }
   }
