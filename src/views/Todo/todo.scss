@@ -11,8 +11,12 @@
     background: #f9f9f9;
     padding: 18px 12px;
     min-height: calc(100vh - 220px);
+    max-height: calc(100vh - 220px);
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 16px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   .list-group-item {
     width: 330px;
