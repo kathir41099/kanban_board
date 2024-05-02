@@ -6,24 +6,31 @@
   display: flex;
   padding: 50px;
   .task_apace {
-    margin-left: 30px;
+    margin-left: 15px;
+  }
+  .list-group {
+    background: #dddddd42;
+    padding: 20px;
+    min-height: calc(100vh - 220px);
+    overflow-y: auto;
   }
   .list-group-item {
     width: 330px;
     border: none;
-    padding: 30px;
+    padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 25px 0px;
     margin-bottom: 10px;
     border-radius: 10px;
   }
   .item {
-    min-height: 180px;
+    min-height: 130px;
+    max-height: 130px;
   }
   .list_type {
     margin-left: 20px;
   }
   .list_type_space_name {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 }
 .list_view {
